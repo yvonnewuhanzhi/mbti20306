@@ -229,19 +229,19 @@ document.addEventListener('DOMContentLoaded', function(){
         })
     }
     
-    function animate2() {
-        requestAnimationFrame(animate2);
-        const delta = clock.getDelta();
-        for (const mixer of mixers) {
-            mixer.update(delta);
-        }
-        controls.update();
-        meshes.default.rotation.x += 0.01;
-        meshes.default.rotation.y -= 0.01;
-        meshes.standard.rotation.x -= 0.01;
-        meshes.standard.rotation.z -= 0.01;
-        renderer.render(scene, camera);
-    }
+    // function animate2() {
+    //     requestAnimationFrame(animate2);
+    //     const delta = clock.getDelta();
+    //     for (const mixer of mixers) {
+    //         mixer.update(delta);
+    //     }
+    //     controls.update();
+    //     meshes.default.rotation.x += 0.01;
+    //     meshes.default.rotation.y -= 0.01;
+    //     meshes.standard.rotation.x -= 0.01;
+    //     meshes.standard.rotation.z -= 0.01;
+    //     renderer.render(scene, camera);
+    // }
     
     function animate() {
         camera.position.y = (-scrollY / window.innerHeight) * objectDistance
@@ -255,7 +255,17 @@ document.addEventListener('DOMContentLoaded', function(){
         meshes.default.rotation.y -= 0.01
         // meshes.standard.rotation.x -= 0.01
         // meshes.standard.rotation.z -= 0.01
-
+    //    meshes.infj.rotation.x+=0.5
+    if(meshes.infj!=undefined) {meshes.infj.rotation.set(0.5,0.5,0.5) }
+    
+        for (const mixer of mixers) {
+            mixer.update(delta);
+        }
+        // controls.update();
+        meshes.default.rotation.x += 0.01;
+        meshes.default.rotation.y -= 0.01;
+        meshes.standard.rotation.x -= 0.01;
+        meshes.standard.rotation.z -= 0.01;
         for (const mesh of sectionMeshes) {
             mesh.rotation.x += delta * 0.1
             mesh.rotation.y += delta * 0.12

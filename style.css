@@ -98,11 +98,16 @@ canvas {
     border-radius: 15px;
     /* padding: 15px 50px; */
 	margin-left: -140%;
-	
-	
 
-  
+
 }
+
+.my-text {
+	text-transform: uppercase;
+	transform: translateY(-200px);
+	transition: transform 0.5s;
+  }
+  
 .mbti{
 	font-size: 90px;
 	color:#f1ea9c
@@ -135,17 +140,3 @@ canvas {
 #section5{
 	background-color: rgb(226, 196, 107);
 }
-/* .poem h1,
-.poem h2,
-.poem p {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-
-.poem.reveal h1,
-.poem.reveal h2,
-.poem.reveal p {
-  opacity: 1;
-  transform: translateY(0);
-} */

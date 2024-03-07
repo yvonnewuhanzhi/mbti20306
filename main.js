@@ -1,6 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
-import { addBoilerPlateMeshes, addStandardMesh } from './addMeshes'
+import { addBoilerPlateMeshes, addStandardMesh,planet3 } from './addMeshes'
 import { addLight } from './addLights'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import gsap from 'gsap'
@@ -20,7 +20,12 @@ document.addEventListener('DOMContentLoaded', function(){
     const clock = new THREE.Clock()
     const scene = new THREE.Scene()
     const meshes = {}
-    const lights = {}
+
+
+    const light1 = addLight(5, { x: -40, y: -14, z: 30 });
+    const light2 = addLight(5, { x: 30, y: 20, z: -20 });
+
+
     const objectDistance = 50
     const sectionMeshes = []
     const mixers = []
@@ -79,11 +84,14 @@ document.addEventListener('DOMContentLoaded', function(){
         meshes.standard2 = addStandardMesh()
         meshes.standard3 = addStandardMesh()
         meshes.standard4 = addStandardMesh()
-        lights.default = addLight()
+        meshes.planet3 = planet3()
+        // lights.default = addLight()
         meshes.standard.position.y = -objectDistance * 1
         meshes.standard2.position.y = -objectDistance * 2
         meshes.standard3.position.y = -objectDistance * 3
+        
         meshes.standard4.position.y = -objectDistance * 4
+        
         meshes.standard.add(sound1)
         meshes.standard2.add(sound2)
         meshes.standard3.add(sound3)
@@ -94,11 +102,15 @@ document.addEventListener('DOMContentLoaded', function(){
         sectionMeshes.push(meshes.standard4)
         
 
-        scene.add(lights.default)
+        scene.add(light1)
+        scene.add(light2)
+        
         scene.add(meshes.standard)
         scene.add(meshes.standard2)
         scene.add(meshes.standard3)
+        scene.add(meshes.planet3)
         scene.add(meshes.standard4)
+        
         // scene.add(meshes.default)
 
         camera.position.set(0, 0, 5)
@@ -191,10 +203,32 @@ document.addEventListener('DOMContentLoaded', function(){
             scene: scene,
             meshes: meshes,
             name: 'bag',
-            position: new THREE.Vector3(1, -205, 0),
-            scale: new THREE.Vector3(3, 3, 3),
+            position: new THREE.Vector3(9, -210, 2),
+            scale: new THREE.Vector3(3.5, 3.5, 3.5),
         })
         bag.init()
+
+        const shield = new Model({
+            sectionMeshes:sectionMeshes,
+            url: '/shield.glb',
+            scene: scene,
+            meshes: meshes,
+            name: 'shield',
+            position: new THREE.Vector3(1, -150, 0),
+            scale: new THREE.Vector3(0.004, 0.004,0.004),
+        })
+        shield.init()
+
+        const glass = new Model({
+            sectionMeshes:sectionMeshes,
+            url: '/glass.glb',
+            scene: scene,
+            meshes: meshes,
+            name: 'glass',
+            position: new THREE.Vector3(4, -51, 0),
+            scale: new THREE.Vector3(0.0036, 0.0036, 0.0036),
+        })
+        glass.init()
       
 
         
@@ -279,12 +313,25 @@ document.addEventListener('DOMContentLoaded', function(){
             meshes.bag.children[5].rotation.y+=0.01
             
         }
-        console.log(meshes.bag)
+        if(meshes.glass!= undefined) {
+            meshes.glass.rotation.y+=0.003
+           
+        }
+        if(meshes.shield!= undefined) {
+           
+            meshes.shield.rotation.y+=0.003
+           
+        }
         for (const mixer of mixers) {
             mixer.update(delta);
         }
 
-
+        const tick = clock.getElapsedTime();
+        const speed3 = 0.1; 
+        
+        meshes.planet3.position.x = Math.sin(tick * speed3) -3.5+10
+        meshes.planet3.position.y = -objectDistance * 3+Math.cos(tick * speed3) 
+        meshes.planet3.position.z=-2
 
 
         //models数组中的model模型
@@ -301,7 +348,7 @@ document.addEventListener('DOMContentLoaded', function(){
             mesh.rotation.x += delta * 0.1
             mesh.rotation.y += delta * 0.12
         }
-        console.log(sectionMeshes)
+        
         const listenerPosition = new THREE.Vector3()
         camera.getWorldPosition(listenerPosition)
 

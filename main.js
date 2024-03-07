@@ -24,6 +24,7 @@ document.addEventListener('DOMContentLoaded', function(){
     const objectDistance = 50
     const sectionMeshes = []
     const mixers = []
+    const models = []
     const listener = new THREE.AudioListener()
     camera.add(listener)
     const sound1 = new THREE.PositionalAudio(listener)
@@ -111,7 +112,7 @@ document.addEventListener('DOMContentLoaded', function(){
         resize()
         // animate2()
         animate()
-        models()
+        metaphor()
         mbtis()
         // checkPosition()
     }
@@ -172,25 +173,20 @@ document.addEventListener('DOMContentLoaded', function(){
 
 
     
-    function models(){
+    function metaphor(){
 		const tree = new Model({
-            //4 mandatories
-            // mixers: mixers,
-            // animationState: true,
-            // replace: true,
+            sectionMeshes:sectionMeshes,
             url: '/tree2.glb',
             scene: scene,
             meshes: meshes,
             name: 'tree',
-            position: new THREE.Vector3(1, -103, 0),
+            position: new THREE.Vector3(10, -103, 0),
             scale: new THREE.Vector3(1.7, 1.7, 1.7),
         })
         tree.init()
-        // sectionMeshes.push(tree.mesh);
+      
         const bag = new Model({
-            //4 mandatories
-            // mixers: mixers,
-            // animationState: true,
+            sectionMeshes:sectionMeshes,
             url: '/backpack.glb',
             scene: scene,
             meshes: meshes,
@@ -199,7 +195,8 @@ document.addEventListener('DOMContentLoaded', function(){
             scale: new THREE.Vector3(3, 3, 3),
         })
         bag.init()
-        // sectionMeshes.push(bag.mesh);
+      
+
         
 	}
 
@@ -211,12 +208,20 @@ document.addEventListener('DOMContentLoaded', function(){
 
             if (section != currentSection) {
                 currentSection = section
-                gsap.to(sectionMeshes[section].rotation, {
-                    duration: 1.5,
-                    ease: 'power3.inOut',
-                    x: '+=6',
-                    y: '+=3',
-                })
+                if(currentSection == 2){
+                    gsap.to(meshes.tree.position, {
+                        duration:1.5,
+                        ease: 'power3.inOut',
+                        x: '-=6',
+                    })
+                }else{
+                    gsap.to(meshes.tree.position, {
+                        duration:1.5,
+                        ease: 'power3.inOut',
+                        x: 10,
+                    })
+                }
+               
             }
         })
     }
@@ -229,19 +234,6 @@ document.addEventListener('DOMContentLoaded', function(){
         })
     }
     
-    // function animate2() {
-    //     requestAnimationFrame(animate2);
-    //     const delta = clock.getDelta();
-    //     for (const mixer of mixers) {
-    //         mixer.update(delta);
-    //     }
-    //     controls.update();
-    //     meshes.default.rotation.x += 0.01;
-    //     meshes.default.rotation.y -= 0.01;
-    //     meshes.standard.rotation.x -= 0.01;
-    //     meshes.standard.rotation.z -= 0.01;
-    //     renderer.render(scene, camera);
-    // }
     
     function animate() {
         camera.position.y = (-scrollY / window.innerHeight) * objectDistance
@@ -255,12 +247,51 @@ document.addEventListener('DOMContentLoaded', function(){
         meshes.default.rotation.y -= 0.01
         // meshes.standard.rotation.x -= 0.01
         // meshes.standard.rotation.z -= 0.01
-    //    meshes.infj.rotation.x+=0.5
-    if(meshes.infj!=undefined) {meshes.infj.rotation.set(0.5,0.5,0.5) }
-    
+
+
+        //mixers数组中的mbti模型
+        if(meshes.infj != undefined) {
+            meshes.infj.children[0].children[0].rotation.y+=0.01
+            meshes.infj.children[0].children[1].rotation.y+=0.01
+        }
+        if(meshes.esfp != undefined) {
+            meshes.esfp.children[0].children[0].rotation.y+=0.01
+            meshes.esfp.children[0].children[1].rotation.y+=0.01
+        }
+        if(meshes.isfj != undefined) {
+            meshes.isfj.children[0].children[0].rotation.y+=0.01
+            meshes.isfj.children[0].children[1].rotation.y+=0.01
+        }
+        if(meshes.intp != undefined) {
+            meshes.intp.children[0].children[0].rotation.y+=0.01
+            meshes.intp.children[0].children[1].rotation.y+=0.01
+        }
+        if(meshes.tree!= undefined) {
+            meshes.tree.rotation.y+=0.003
+           
+        }
+        if(meshes.bag!= undefined) {
+            meshes.bag.children[0].rotation.y+=0.01
+            meshes.bag.children[1].rotation.y+=0.01
+            meshes.bag.children[2].rotation.y+=0.01
+            meshes.bag.children[3].rotation.y+=0.01
+            meshes.bag.children[4].rotation.y+=0.01
+            meshes.bag.children[5].rotation.y+=0.01
+            
+        }
+        console.log(meshes.bag)
         for (const mixer of mixers) {
             mixer.update(delta);
         }
+
+
+
+
+        //models数组中的model模型
+        // for (const model of models) {
+        //    meshes.bag.rotation.x+=0.02
+        // }
+
         // controls.update();
         meshes.default.rotation.x += 0.01;
         meshes.default.rotation.y -= 0.01;
@@ -270,6 +301,7 @@ document.addEventListener('DOMContentLoaded', function(){
             mesh.rotation.x += delta * 0.1
             mesh.rotation.y += delta * 0.12
         }
+        console.log(sectionMeshes)
         const listenerPosition = new THREE.Vector3()
         camera.getWorldPosition(listenerPosition)
 
@@ -281,30 +313,4 @@ document.addEventListener('DOMContentLoaded', function(){
         renderer.render(scene, camera)
     }
 
-
-    // const sections = document.querySelectorAll('.poem');
-
-	// function checkPosition() {
-	// 	sections.forEach(section => {
-	// 		const sectionTop = section.offsetTop;
-	// 		const sectionHeight = section.offsetHeight;
-	// 		const scrollY = window.scrollY;
-	
-	// 		if (
-	// 			scrollY > sectionTop - window.innerHeight + 100 &&
-	// 			scrollY < sectionTop + sectionHeight - 100
-	// 		) {
-	// 			section.classList.add('reveal');
-	// 		} else {
-	// 			section.classList.remove('reveal');
-	// 		}
-	
-			
-	// 	});
-	// }
-	
-
-    // window.addEventListener('scroll', checkPosition);
-    // window.addEventListener('resize', checkPosition);
 })
-

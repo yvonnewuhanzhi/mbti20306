@@ -25,8 +25,14 @@ export const addStandardMesh = () => {
 	return boxMesh
 }
 export const planet3 = () => {
-    const planet3Geometry = new ConeGeometry( 5, 5.5, 4 );  
-    const planet3Material = new MeshBasicMaterial({ color: 0x499DAE});
+    const planet3Geometry = new ConeGeometry( 12, 16, 17 );  
+    const planet3Material = new MeshBasicMaterial({ color: 0xfbe391});
     const planet3Mesh = new Mesh(planet3Geometry, planet3Material);
     return planet3Mesh;
+};
+export const planet4 = () => {
+    const planet4Geometry = new ConeGeometry( 15, 22.5, 25 );  
+    const planet4Material = new MeshBasicMaterial({ color: 0x92acc0});
+    const planet4Mesh = new Mesh(planet4Geometry, planet4Material);
+    return planet4Mesh;
 };

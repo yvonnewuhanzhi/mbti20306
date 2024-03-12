@@ -8,14 +8,6 @@ import Model from './Model'
 
 document.addEventListener('DOMContentLoaded', function () {
 
-    // //'click' action feedback : icon change of the cursor
-    window.addEventListener('mousedown', function () {
-        document.body.style.cursor = "url('cursor.png'),auto";
-    })
-    window.addEventListener('mouseup', function () {
-        document.body.style.cursor = "url('cursor2.png'),auto";
-    })
-
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     const camera = new THREE.PerspectiveCamera(
         75,
@@ -29,12 +21,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const clock = new THREE.Clock()
     const scene = new THREE.Scene()
     const meshes = {}
-
-
     const light1 = addLight(5, { x: -40, y: -14, z: 30 });
     const light2 = addLight(5, { x: 30, y: 20, z: -20 });
-
-
     const objectDistance = 50
     const sectionMeshes = []
     const mixers = []
@@ -46,6 +34,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const sound2 = new THREE.PositionalAudio(listener)
     const sound3 = new THREE.PositionalAudio(listener)
     const sound4 = new THREE.PositionalAudio(listener)
+    const sound5 = new THREE.PositionalAudio(listener)
     const audioLoader = new THREE.AudioLoader()
     audioLoader.load('/1.mp3', function (buffer) {
         sound1.setBuffer(buffer)
@@ -71,14 +60,43 @@ document.addEventListener('DOMContentLoaded', function () {
         sound3.setDistanceModel('exponential')
         // sound3.play()
     })
-    audioLoader.load('/1.mp3', function (buffer) {
-        sound4.setBuffer(buffer)
-        sound4.setRefDistance(10)
-        sound4.setRolloffFactor(5)
-        sound4.setMaxDistance(200)
-        sound4.setDistanceModel('exponential')
-        // sound.play()
-    })
+ 
+    audioLoader.load('/click.mp3', function (buffer) {
+        sound4.setBuffer(buffer);
+        sound4.setRefDistance(10);
+        sound4.setRolloffFactor(5);
+        sound4.setMaxDistance(200);
+        sound4.setDistanceModel('exponential');
+        
+        let clickbt = document.getElementById("explore");
+        clickbt.addEventListener('click', playclicksd1);
+        
+
+        function playclicksd1() {
+            sound4.play();
+        }
+    
+       
+    });
+    audioLoader.load('/click2.mp3', function (buffer) {
+        sound5.setBuffer(buffer);
+        sound5.setRefDistance(10);
+        sound5.setRolloffFactor(5);
+        sound5.setMaxDistance(200);
+        sound5.setDistanceModel('exponential');
+        
+    
+        let clickbt2 = document.getElementById("back");
+        clickbt2.addEventListener('click', playclicksd2);
+    
+       
+        function playclicksd2() {
+            sound5.play();
+        }
+
+       
+    });
+    
     let scrollY = 0
     let currentSection = 0
 

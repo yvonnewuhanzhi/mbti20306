@@ -10,16 +10,16 @@
 
 <body>
   <main class='container'>
-  <!-- INTRO MBTI title page -->
-      
-  <section class='poem center' id="section1">
-    <div class='INTRO'>
+    <!-- INTRO MBTI title page -->
 
-      <h1 id="intro" id="introMove">MBTI INTRO</h1>
-      <button id="explore">Explore!</button>
-      
-    </div>
-  </section>
+    <section class='poem center' id="section1">
+      <div class='INTRO'>
+
+        <h1 id="intro" id="introMove">MBTI INTRO</h1>
+        <button id="explore">Explore!</button>
+
+      </div>
+    </section>
     <section class='poem left' id="section2">
       <div class='poem_container'>
 
@@ -28,30 +28,35 @@
         <p>
           They may need to scrutinize data and details to identify potential patterns and trends.
           <br>Just like a magnifying glass.
-          <br><p id="scroll">Scroll down to get more info👇🏻</p>        </p>
+          <br>
+        <p id="scroll">Scroll down to get more info👇🏻</p>
+        </p>
       </div>
     </section>
     <section class='poem left' id="section3">
       <div class='poem_container'>
 
         <h1 class="mbti">DIPLOMAT</h1>
-          <h2>(_NF_)INFJ、INFP、ENFJ、ENFP<br>—— - —— - —— - —— - —— - —— - —— - —— - ——</h2>
-          <p>
+        <h2>(_NF_)INFJ、INFP、ENFJ、ENFP<br>—— - —— - —— - —— - —— - —— - —— - —— - ——</h2>
+        <p>
           They are gentle, considerate, compassionate and able to provide reassurance and support.
           <br>Just like a peace tree.
-          <br><p id="scroll">Scroll down to get more info👇🏻</p>          </p>
+          <br>
+        <p id="scroll">Scroll down to get more info👇🏻</p>
+        </p>
       </div>
     </section>
     <section class='poem left' id="section4">
       <div class='poem_container'>
 
         <h1 class="mbti">SENTINEL</h1>
-          <h2>(_S_J)ISTJ、ISFJ、ESTJ、ESFJ<br>—— - —— - —— - —— - —— - —— - —— - —— - ——</h2>
-          <p>
+        <h2>(_S_J)ISTJ、ISFJ、ESTJ、ESFJ<br>—— - —— - —— - —— - —— - —— - —— - —— - ——</h2>
+        <p>
           They tend to protect and preserve the social order and are reliable.
           <br>Just like a guardian's shield.
-          <br><p id="scroll">Scroll down to get more info👇🏻</p>
-          </p>
+          <br>
+        <p id="scroll">Scroll down to get more info👇🏻</p>
+        </p>
       </div>
     </section>
     <section class='poem left' id="section5">
@@ -69,7 +74,20 @@
   </main>
   <div id="app"></div>
   <script type="module" src="/main.js"></script>
-
+  <script src="https://unpkg.com/split-type"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"
+    integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <!-- <script>
+    const introMove = new SplitType('#intro')
+    gsap.to('.char', {
+            y: 0,
+            stagger: 0.05,
+            delay: 0.2,
+            duration: .1
+        })
+   
+  </script> -->
 </body>
 
 </html>

@@ -10,7 +10,9 @@ canvas {
 	top: 0;
 	/* z-index: -1; */
 }
-
+html{
+	cursor:url('public/cursor11.png'),auto;
+}
 .poem h2 {
 	font-size: 16px;
 	color: white;
@@ -95,13 +97,13 @@ canvas {
 }
 
 #explore:hover {
-	cursor: pointer;
+	cursor:url('public/cursor22.png'),auto;
 	background-color: rgb(235, 219, 144);
 	color: rgb(255, 255, 255);
 	transition: 0.7s;
 }
 #back:hover {
-	cursor: pointer;
+	cursor:url('public/cursor22.png'),auto;
 	background-color: rgb(235, 219, 144);
 	color: rgb(255, 255, 255);
 	transition: 0.7s;
@@ -115,7 +117,12 @@ canvas {
 	border-radius: 15px;
 	/* padding: 15px 50px; */
 	margin-left: -140%;
+	clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
 }
+/* .char {
+    transform: translateY(115px);
+    transition: transform .5s;
+} */
 #scroll{
     color:#fbff95;
 	font-size:23px;

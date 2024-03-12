@@ -47,7 +47,9 @@ html{
 	max-width: 500px;
 	/* border: 2px solid blue; */
 	margin-left: 7%;
+	
 }
+
 
 .poem.right > .poem_container {
 	text-align: end;
@@ -112,17 +114,20 @@ html{
 #intro {
 	color: #ffffff;
 	text-align: center;
+	place-content: center;
 	font-size: 150px;
 	border: none;
 	border-radius: 15px;
 	/* padding: 15px 50px; */
-	margin-left: -140%;
-	clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+	/* margin-left: -100%; */
+	clip-path: polygon(-100% -50%, 30% -50%, 30% 100%, -100% 100%);
+	
 }
-/* .char {
-    transform: translateY(115px);
-    transition: transform .5s;
-} */
+
+.char {
+    transform: translateY(600%);
+    transition: transform 0.5s;
+}
 #scroll{
     color:#fbff95;
 	font-size:23px;

@@ -4,9 +4,11 @@ import { addBoilerPlateMeshes, addStandardMesh, planet3, planet4 } from './addMe
 import { addLight } from './addLights'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import gsap from 'gsap'
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Model from './Model'
 
 document.addEventListener('DOMContentLoaded', function () {
+
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     const camera = new THREE.PerspectiveCamera(
@@ -60,23 +62,23 @@ document.addEventListener('DOMContentLoaded', function () {
         sound3.setDistanceModel('exponential')
         // sound3.play()
     })
- 
+
     audioLoader.load('/click.mp3', function (buffer) {
         sound4.setBuffer(buffer);
         sound4.setRefDistance(10);
         sound4.setRolloffFactor(5);
         sound4.setMaxDistance(200);
         sound4.setDistanceModel('exponential');
-        
+
         let clickbt = document.getElementById("explore");
         clickbt.addEventListener('click', playclicksd1);
-        
+
 
         function playclicksd1() {
             sound4.play();
         }
-    
-       
+
+
     });
     audioLoader.load('/click2.mp3', function (buffer) {
         sound5.setBuffer(buffer);
@@ -84,19 +86,19 @@ document.addEventListener('DOMContentLoaded', function () {
         sound5.setRolloffFactor(5);
         sound5.setMaxDistance(200);
         sound5.setDistanceModel('exponential');
-        
-    
+
+
         let clickbt2 = document.getElementById("back");
         clickbt2.addEventListener('click', playclicksd2);
-    
-       
+
+
         function playclicksd2() {
             sound5.play();
         }
 
-       
+
     });
-    
+
     let scrollY = 0
     let currentSection = 0
 
@@ -106,55 +108,21 @@ document.addEventListener('DOMContentLoaded', function () {
         // Set up our renderer default settings, add scene/canvas to webpage
         renderer.setSize(window.innerWidth, window.innerHeight)
         document.body.appendChild(renderer.domElement)
-
-        // meshes.default = addBoilerPlateMeshes()
-        // meshes.standard = addStandardMesh()
-        // meshes.standard2 = addStandardMesh()
-        // meshes.standard3 = addStandardMesh()
-        // meshes.standard4 = addStandardMesh()
         meshes.planet3 = planet3()
         meshes.planet4 = planet4()
-        // lights.default = addLight()
-        // meshes.standard.position.y = -objectDistance * 1
-        // meshes.standard2.position.y = -objectDistance * 2
-        // meshes.standard3.position.y = -objectDistance * 3
-        // meshes.standard4.position.y = -objectDistance * 4
-
-        // meshes.glass.add(sound1)
-        // meshes.tree.add(sound2)
-        // meshes.shield.add(sound3)
-        // meshes.bag.add(sound4)
-        // sectionMeshes.push(meshes.standard)
-        // sectionMeshes.push(meshes.standard2)
-        // sectionMeshes.push(meshes.standard3)
-        // sectionMeshes.push(meshes.standard4)
-
-
         scene.add(light1)
         scene.add(light2)
-
-
         scene.add(meshes.planet3)
         scene.add(meshes.planet4)
-
-
-        // scene.add(meshes.default)
-
         camera.position.set(0, 0, 5)
-        // window.addEventListener('click', () => {
-        //     sound1.play()
-        //     sound2.play()
-        //     sound3.play()
-        //     sound4.play()
-        // })
-        sound1.play()
+
+
         initScrolling()
         resize()
-        // mbtiSound()
         animate()
         metaphor()
         mbtis()
-        // checkPosition()
+        
     }
 
     // script.js
@@ -186,9 +154,7 @@ document.addEventListener('DOMContentLoaded', function () {
             scale: new THREE.Vector3(0.4, 0.4, 0.4),
         })
         infj.init()
-        // infj.domElement.onclick = function() {
-        //     section3.scrollIntoView({ behavior: 'smooth' });
-        // };
+
         const esfp = new Model({
             //4 mandatories
             mixers: mixers,
@@ -242,7 +208,21 @@ document.addEventListener('DOMContentLoaded', function () {
             scale: new THREE.Vector3(1.9, 1.9, 1.9),
         })
         tree.init()
-        // scene.add(meshes.tree);
+        // const soundTree = new THREE.PositionalAudio(listener);
+        // audioLoader.load('/1.mp3', function(buffer) {
+        //     soundTree.setBuffer(buffer);
+        //     soundTree.setRefDistance(10);
+        //     soundTree.setRolloffFactor(5);
+        //     soundTree.setMaxDistance(200);
+        //     soundTree.setDistanceModel('exponential');
+        // });
+        // meshes.tree.add(soundTree); 
+        // window.addEventListener('click', () => {
+        //     soundTree.play()
+        //     // sound2.play()
+        //     // sound3.play()
+        // })
+
         const plant = new Model({
             sectionMeshes: sectionMeshes,
             url: '/plant.glb',
@@ -324,18 +304,9 @@ document.addEventListener('DOMContentLoaded', function () {
 
     }
 
-    // function mbtiSound(){
-    //     meshes.glass.add(sound1)
-    //     meshes.tree.add(sound2)
-    //     meshes.shield.add(sound3)
-    //     meshes.bag.add(sound4)
-    //     window.addEventListener('click', () => {
-    //         sound1.play()
-    //         sound2.play()
-    //         sound3.play()
-    //         sound4.play()
-    //     })
-    // }
+
+
+
 
     function initScrolling() {
         container.addEventListener('scroll', () => {
@@ -345,6 +316,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (section != currentSection) {
                 currentSection = section
                 if (currentSection == 1) {
+
                     gsap.to(meshes.glass.position, {
                         duration: 1,
                         ease: 'power3.inOut',
@@ -374,6 +346,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     })
                 }
                 if (currentSection == 2) {
+
                     gsap.to(meshes.tree.position, {
                         duration: 1,
                         ease: 'power3.inOut',

@@ -8,13 +8,15 @@ canvas {
 	position: fixed;
 	pointer-events: none;
 	top: 0;
-	/* z-index: -1; */
 }
 
+/* ----------------------add cursor icon------------------------------ */
 html {
 	cursor: url('public/cursor111.png'), auto;
 }
 
+
+/* ---------------------add audioContainer---------------------------- */
 #audioContainer {
 	z-index: 8;
 	position: fixed;
@@ -24,6 +26,9 @@ html {
 #audioContainer:hover{
 	cursor: url('public/click111.png'), auto;
 }
+
+
+/* ----------------------html body part ------------------------------*/
 .poem h2 {
 	font-size: 16px;
 	color: white;
@@ -31,11 +36,9 @@ html {
 
 .poem {
 	scroll-snap-align: center;
-
 	width: 100vw;
 	font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 	height: 100vh;
-	/* border: 2px solid red; */
 	display: flex;
 	justify-content: start;
 	align-items: center;
@@ -58,11 +61,8 @@ html {
 .poem_container {
 	text-align: start;
 	max-width: 500px;
-	/* border: 2px solid blue; */
 	margin-left: 7%;
-
 }
-
 
 .poem.right>.poem_container {
 	text-align: end;
@@ -76,14 +76,14 @@ html {
 }
 
 .container {
-	/* Make this a vertical scroll container */
 	overflow-y: scroll;
-	/* Required height to enable scrolling, 100vh for full viewport height */
 	height: 100vh;
-	/* Enable scroll snapping */
 	scroll-snap-type: y mandatory;
 }
 
+
+
+/* -----------------------two buttons (explore and back) -----------------------*/
 #explore {
 	position: absolute;
 	z-index: 7;
@@ -127,6 +127,7 @@ html {
 	transition: 0.7s;
 }
 
+/* --------------------------texts in section1-------------------------------- */
 #intro {
 	color: #ffffff;
 	text-align: center;
@@ -134,12 +135,17 @@ html {
 	font-size: 150px;
 	border: none;
 	border-radius: 15px;
-	/* padding: 15px 50px; */
-	/* margin-left: -100%; */
 	clip-path: polygon(-100% -50%, 30% -50%, 30% 100%, -100% 100%);
 
 }
+.INTRO {
+	top: 50%;
+	left: 90%;
+	transform: translate(70%, -60%);
+}
 
+
+/* split the text into separate characters and add animation to them by using gsap */
 .char {
 	transform: translateY(600%);
 	transition: transform 0.5s;
@@ -150,22 +156,8 @@ html {
 	font-size: 23px;
 }
 
-.my-text {
-	text-transform: uppercase;
-	transform: translateY(-200px);
-	transition: transform 0.5s;
-}
 
-.mbti {
-	font-size: 90px;
-	color: #f1ea9c;
-}
-
-.INTRO {
-	top: 50%;
-	left: 90%;
-	transform: translate(70%, -60%);
-}
+/* -----------------------edit text and background in each section-------------------- */
 
 #section1,
 #section2,
@@ -173,7 +165,6 @@ html {
 #section4,
 #section5 {
 	position: relative;
-	/* z-index: -2; 设置其他区段的 z-index 值为更高 */
 }
 
 #section1 {
@@ -181,6 +172,12 @@ html {
 	background-image: url(./public/background.png);
 	background-repeat: no-repeat;
 	background-size: cover;
+}
+
+
+.mbti {
+	font-size: 90px;
+	color: #f1ea9c;
 }
 
 #section2 {

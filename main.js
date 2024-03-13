@@ -7,9 +7,10 @@ import gsap from 'gsap'
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Model from './Model'
 
+
 document.addEventListener('DOMContentLoaded', function () {
 
-
+ //------------- Pass in camera and renderer dom element---------------------
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true })
     const camera = new THREE.PerspectiveCamera(
         75,
@@ -17,8 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
         0.1,
         100
     )
-
-    // Pass in camera and renderer dom element
     const container = document.querySelector('.container')
     const clock = new THREE.Clock()
     const scene = new THREE.Scene()
@@ -30,74 +29,37 @@ document.addEventListener('DOMContentLoaded', function () {
     const mixers = []
     const models = []
 
+
+//---------------add audiolistener for sound effect--------------------
     const listener = new THREE.AudioListener()
     camera.add(listener)
-    const sound1 = new THREE.PositionalAudio(listener)
-    const sound2 = new THREE.PositionalAudio(listener)
-    const sound3 = new THREE.PositionalAudio(listener)
-    const sound4 = new THREE.PositionalAudio(listener)
-    const sound5 = new THREE.PositionalAudio(listener)
+    const explorerSd = new THREE.PositionalAudio(listener)
+    const backSd = new THREE.PositionalAudio(listener)
     const audioLoader = new THREE.AudioLoader()
-    audioLoader.load('/1.mp3', function (buffer) {
-        sound1.setBuffer(buffer)
-        sound1.setRefDistance(10)
-        sound1.setRolloffFactor(5)
-        sound1.setMaxDistance(200)
-        sound1.setDistanceModel('exponential')
-        // sound1.play()
-    })
-    audioLoader.load('/2.mp3', function (buffer) {
-        sound2.setBuffer(buffer)
-        sound2.setRefDistance(10)
-        sound2.setRolloffFactor(5)
-        sound2.setMaxDistance(200)
-        sound2.setDistanceModel('exponential')
-        // sound2.play()
-    })
-    audioLoader.load('/3.mp3', function (buffer) {
-        sound3.setBuffer(buffer)
-        sound3.setRefDistance(10)
-        sound3.setRolloffFactor(5)
-        sound3.setMaxDistance(200)
-        sound3.setDistanceModel('exponential')
-        // sound3.play()
-    })
 
+    //--------explore button sound effect-----------
     audioLoader.load('/click.mp3', function (buffer) {
-        sound4.setBuffer(buffer);
-        sound4.setRefDistance(10);
-        sound4.setRolloffFactor(5);
-        sound4.setMaxDistance(200);
-        sound4.setDistanceModel('exponential');
+        explorerSd.setBuffer(buffer);
+        explorerSd.setRefDistance(10);
+        explorerSd.setRolloffFactor(5);
+        explorerSd.setMaxDistance(200);
+        explorerSd.setDistanceModel('exponential');
 
         let clickbt = document.getElementById("explore");
         clickbt.addEventListener('click', playclicksd1);
-
-
         function playclicksd1() {
-            sound4.play();
+            explorerSd.play();
         }
-
-
     });
-    audioLoader.load('/click2.mp3', function (buffer) {
-        sound5.setBuffer(buffer);
-        sound5.setRefDistance(10);
-        sound5.setRolloffFactor(5);
-        sound5.setMaxDistance(200);
-        sound5.setDistanceModel('exponential');
+  
+     //--------back button sound effect-----------
+    function playclicksd2() {
+        var backSd = new Audio('/click2.mp3')
+        backSd.play();
+    }
+    let clickbt2 = document.getElementById("back");
+    clickbt2.addEventListener('click', playclicksd2);
 
-
-        let clickbt2 = document.getElementById("back");
-        clickbt2.addEventListener('click', playclicksd2);
-
-
-        function playclicksd2() {
-            sound5.play();
-        }
-
-
-    });
 
     let scrollY = 0
     let currentSection = 0
@@ -105,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
     init()
 
     function init() {
-        // Set up our renderer default settings, add scene/canvas to webpage
+        //-------set up our renderer default settings, add scene/canvas to webpage--------
         renderer.setSize(window.innerWidth, window.innerHeight)
         document.body.appendChild(renderer.domElement)
         meshes.planet3 = planet3()
@@ -125,14 +87,12 @@ document.addEventListener('DOMContentLoaded', function () {
         
     }
 
-    // script.js
-
+//----------Click on the button to return to the corresponding page------------
     var exploreBtn = document.getElementById("explore");
     var backBtn = document.getElementById("back");
+    var section1 = document.getElementById("section1");
     var section2 = document.getElementById("section2");
-    var section3 = document.getElementById("section3");
-    var section4 = document.getElementById("section4");
-    var section5 = document.getElementById("section5");
+
 
     exploreBtn.addEventListener("click", function () {
         section2.scrollIntoView({ behavior: 'smooth' });
@@ -141,9 +101,11 @@ document.addEventListener('DOMContentLoaded', function () {
         section1.scrollIntoView({ behavior: 'smooth' });
     });
 
+
+//----------add 4 mbti models to section1-----------------
     function mbtis() {
         const infj = new Model({
-            //4 mandatories
+          
             mixers: mixers,
             animationState: true,
             url: '/infj.glb',
@@ -156,7 +118,7 @@ document.addEventListener('DOMContentLoaded', function () {
         infj.init()
 
         const esfp = new Model({
-            //4 mandatories
+           
             mixers: mixers,
             animationState: true,
             url: '/esfp.glb',
@@ -168,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         esfp.init()
         const isfj = new Model({
-            //4 mandatories
+           
             mixers: mixers,
             animationState: true,
             url: '/isfj.glb',
@@ -180,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function () {
         })
         isfj.init()
         const intp = new Model({
-            //4 mandatories
+         
             mixers: mixers,
             animationState: true,
             url: '/intp.glb',
@@ -196,7 +158,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
 
-
+//--------------add metaphor models to 2,3,4,5 section------------------
     function metaphor() {
         const tree = new Model({
             sectionMeshes: sectionMeshes,
@@ -208,20 +170,7 @@ document.addEventListener('DOMContentLoaded', function () {
             scale: new THREE.Vector3(1.9, 1.9, 1.9),
         })
         tree.init()
-        // const soundTree = new THREE.PositionalAudio(listener);
-        // audioLoader.load('/1.mp3', function(buffer) {
-        //     soundTree.setBuffer(buffer);
-        //     soundTree.setRefDistance(10);
-        //     soundTree.setRolloffFactor(5);
-        //     soundTree.setMaxDistance(200);
-        //     soundTree.setDistanceModel('exponential');
-        // });
-        // meshes.tree.add(soundTree); 
-        // window.addEventListener('click', () => {
-        //     soundTree.play()
-        //     // sound2.play()
-        //     // sound3.play()
-        // })
+    
 
         const plant = new Model({
             sectionMeshes: sectionMeshes,
@@ -244,7 +193,7 @@ document.addEventListener('DOMContentLoaded', function () {
             scale: new THREE.Vector3(3.5, 3.5, 3.5),
         })
         bag.init()
-        // scene.add(meshes.bag);
+        
 
         const cubetoy = new Model({
             sectionMeshes: sectionMeshes,
@@ -277,8 +226,7 @@ document.addEventListener('DOMContentLoaded', function () {
             scale: new THREE.Vector3(0.004, 0.004, 0.004),
         })
         shield.init()
-
-        // scene.add(meshes.shield);
+       
         const glass = new Model({
             sectionMeshes: sectionMeshes,
             url: '/glass.glb',
@@ -289,7 +237,7 @@ document.addEventListener('DOMContentLoaded', function () {
             scale: new THREE.Vector3(0.0036, 0.0036, 0.0036),
         })
         glass.init()
-        // scene.add(meshes.glass);
+        
         const book = new Model({
             sectionMeshes: sectionMeshes,
             url: '/book.glb',
@@ -306,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 
 
-
+//-------------add scrolling effect and gsap entry animation-----------------
 
     function initScrolling() {
         container.addEventListener('scroll', () => {
@@ -438,6 +386,8 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     }
 
+
+//---------------- adjusts the size of a renderer and camera-------------------
     function resize() {
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight)
@@ -446,34 +396,33 @@ document.addEventListener('DOMContentLoaded', function () {
         })
     }
 
-
+//-----------------add animation to the models themselves-------------------
     function animate() {
         camera.position.y = (-scrollY / window.innerHeight) * objectDistance
-        // camera.position.x =(scrollY / window.innerHeight) * objectDistance*0.5
+      
 
         requestAnimationFrame(animate)
         const delta = clock.getDelta()
         const elapsedTime = clock.getElapsedTime()
-        // controls.update()
-
-        // meshes.standard.rotation.x -= 0.01
-        // meshes.standard.rotation.z -= 0.01
         const tick = clock.getElapsedTime();
         const speed3 = 0.1;
 
-        //mixers数组中的mbti模型
+        
         if (meshes.infj != undefined) {
             meshes.infj.children[0].children[0].rotation.y += 0.01
             meshes.infj.children[0].children[1].rotation.y += 0.01
         }
+
         if (meshes.esfp != undefined) {
             meshes.esfp.children[0].children[0].rotation.y += 0.01
             meshes.esfp.children[0].children[1].rotation.y += 0.01
         }
+
         if (meshes.isfj != undefined) {
             meshes.isfj.children[0].children[0].rotation.y += 0.01
             meshes.isfj.children[0].children[1].rotation.y += 0.01
         }
+
         if (meshes.intp != undefined) {
             meshes.intp.children[0].children[0].rotation.y += 0.01
             meshes.intp.children[0].children[1].rotation.y += 0.01
@@ -483,6 +432,7 @@ document.addEventListener('DOMContentLoaded', function () {
             meshes.tree.rotation.y -= 0.003
 
         }
+
         if (meshes.plant != undefined) {
             meshes.plant.rotation.y += 0.003
             meshes.plant.rotation.x = 150
@@ -500,39 +450,37 @@ document.addEventListener('DOMContentLoaded', function () {
         }
 
         if (meshes.cubetoy != undefined) {
-
             meshes.cubetoy.rotation.y += 0.0003
-
         }
+
         if (meshes.glass != undefined) {
             meshes.glass.rotation.y += 0.003
-
         }
+
         if (meshes.book != undefined) {
             meshes.book.rotation.y = Math.cos(tick * speed3) - 3.5
             meshes.book.rotation.x = 45
-
-
         }
+
         if (meshes.shield != undefined) {
             meshes.shield.rotation.x += 0.003
-
         }
+
         if (meshes.sword != undefined) {
             meshes.sword.rotation.y = 100
             meshes.sword.rotation.x = 39
             meshes.sword.rotation.z = 145 + Math.cos(tick) * 0.3
         }
+
         for (const mixer of mixers) {
             mixer.update(delta);
         }
-
-
 
         meshes.planet3.position.x = Math.sin(tick * speed3) + 5
         meshes.planet3.position.y = -objectDistance * 3 + Math.cos(tick * speed3) + 50
         meshes.planet3.position.z = -10
         meshes.planet3.rotation.z = 45
+
 
         meshes.planet4.position.x = Math.cos(tick * speed3) - 3.5 + 10
         meshes.planet4.position.y = -objectDistance * 4 + Math.sin(tick * speed3) + 50
@@ -547,12 +495,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         const listenerPosition = new THREE.Vector3()
         camera.getWorldPosition(listenerPosition)
-
-        // Assuming sound1 is your PositionalAudio object
-        // updateVolumeBasedOnDistance(sound1, listenerPosition, 20, 0.5)
-        // updateVolumeBasedOnDistance(sound2, listenerPosition, 20, 0.5)
-        // updateVolumeBasedOnDistance(sound3, listenerPosition, 20, 0.5)
-
         renderer.render(scene, camera)
     }
 
